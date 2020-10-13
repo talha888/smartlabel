@@ -4,6 +4,7 @@ def main():
     dataset = Dataset()
 
     dataset.create_dataset("Hello", "Sample Description")
+    dataset.get_dataset(20)
 
 
 
