@@ -12,7 +12,7 @@ class Project():
 
     def get_project(self, id):
         mycursor = db.cursor()
-        smycursor.execute(f"SELECT * FROM project where ProjectId = {id}")
+        mycursor.execute(f"SELECT * FROM project where ProjectId = {id}")
 
         for x in mycursor:
            print(x)

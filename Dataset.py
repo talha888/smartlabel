@@ -14,6 +14,7 @@ class Dataset():
         db.commit()
 
 
+#Col names are not showing 
     def get_dataset(self, id):
         mycursor = db.cursor()
 
