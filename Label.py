@@ -15,5 +15,16 @@ class Label_Object():
         mycursor.execute(f"SELECT * FROM labelobj where LabelObjId  = {id}")
 
         for x in mycursor:
-           print(x)
+           
+           thisdict = {
+            "LabelObjId": x[0],
+            "ProjectId": x[1],
+            "Name": x[2],
+            "LabelType": x[3],
+            "Color": x[4],
+            "DateIn": x[5],
+            "DateOut": x[6],
+        }
+
         db.commit()
+        return thisdict
