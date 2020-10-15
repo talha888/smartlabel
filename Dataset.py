@@ -25,5 +25,15 @@ class Dataset():
         mycursor.execute(f"SELECT * FROM dataset where DatasetId = {id}")
 
         for x in mycursor:
-           print(x)
+           
+           thisdict = {
+            "DatasetId": x[0],
+            "UserID": x[1],
+            "Name": x[2],
+            "Description": x[3],
+            "DateIn": x[4],
+            "DateOut": x[5],
+        }
+
         db.commit()
+        return thisdict

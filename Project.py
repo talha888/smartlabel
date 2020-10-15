@@ -15,5 +15,18 @@ class Project():
         mycursor.execute(f"SELECT * FROM project where ProjectId = {id}")
 
         for x in mycursor:
-           print(x)
+           
+           thisdict = {
+            "ProjectId": x[0],
+            "Createdby": x[1],
+            "DatasetId": x[2],
+            "Name": x[3],
+            "Description": x[4],
+            "Status": x[5],
+            "Role": x[6],
+            "DateIn": x[7],
+            "DateOut": x[8],
+        }
+
         db.commit()
+        return thisdict
