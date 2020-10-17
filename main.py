@@ -2,7 +2,12 @@ from Dataset import Dataset
 from Project import Project
 from Label import Label_Object
 
+# TODO: add argparse support to the module
+# TODO: https://github.com/talha888/smartlabel/issues/1
+
 def main():
+
+    # 
     dataset = Dataset()
     project = Project()
     labelobj = Label_Object()

@@ -1,3 +1,4 @@
+# TODO: Remove extra comments
 from .connection import db
 
 class Dataset():
@@ -5,6 +6,16 @@ class Dataset():
         self.name = ""
     
     def create_dataset(self, name, description = ""):
+        """Create a new Data
+
+        Args:
+            name (str): Title of dataset
+            description (str, optional): Description of the dataset. Helps in searching. Defaults to "".
+        
+        Returns:
+            id (int): Id of the newly created dataset.
+        """
+
         mycursor = db.cursor()
 
 
@@ -13,6 +24,7 @@ class Dataset():
         mycursor.execute("INSERT INTO dataset (UserID, Name, Description) VALUES (%s,%s,%s)",(1, name, description))
         db.commit()
 
+        # TODO: Return newly created dataset id
 
 #Col names are not showing 
     def get_dataset(self, id):
