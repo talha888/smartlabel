@@ -1,29 +1,45 @@
-from Dataset import Dataset
-from Project import Project
-from Label import Label_Object
+docstring = "*"*99 + """ Smartlabel command line interface.
+""" +  "*"*99
+
+import argparse
+
+
+parser = argparse.ArgumentParser(description=docstring)
+
+parser.add_argument("--list-projects", default=argparse.SUPPRESS, nargs='?')
+
+parser.add_argument("--create-project", default=argparse.SUPPRESS, nargs=1)
+parser.add_argument("--create-dataset", default=argparse.SUPPRESS, nargs=1)
+parser.add_argument("--create-dataset-rows-from-directory", default=argparse.SUPPRESS, nargs=1)
+parser.add_argument("--create-dataset-row-from-s3", default=argparse.SUPPRESS, nargs=1, type=str)
+parser.add_argument("--create-dataset-row-from-csv", default=argparse.SUPPRESS, nargs=1, type=str)
+parser.add_argument("--create-dataset-row-from-txt", default=argparse.SUPPRESS, nargs=1, type=str)
+parser.add_argument("--create-dataset-row-from-image", default=argparse.SUPPRESS, nargs=1, type=str)
+
+
+parser.add_argument("--connect-dataset-to-project", default=argparse.SUPPRESS, nargs=1)
+
 
 # TODO: add argparse support to the module
 # TODO: https://github.com/talha888/smartlabel/issues/1
 
+
 def main():
-
-    # 
-    dataset = Dataset()
-    project = Project()
-    labelobj = Label_Object()
-
-    #dataset.create_dataset("Hello", "Sample Description")
-    dataset_dict = dataset.get_dataset(20)
-    print(dataset_dict)
+    args, leftovers = parser.parse_known_args()
     
+    if hasattr(args, 'list_projects'):
+        # TODO: list all projects with tabulate
+        print('list projects')
+    elif hasattr(args, 'create_project'):
+        # TODO: list create a new project and return a line with its meta data.
+        print('project has been created')
+    elif hasattr(args, 'create_dataset'):
+        # TODO: list create a new dataset and return a line with its meta data.
+        print('dataset has been created')
+    elif hasattr(args, 'create_dataset_row_from_csv'):
+        # TODO: list create a new dataset and return a line with its meta data.
+        print('all files have been uploaded to dataset')
 
-    #project.create_project("Birds", "Birds Project")
-    project_dict = project.get_project(19)
-    print(project_dict)
-
-    #labelobj.create_Label("Rat", "BOUNDING_BOX")
-    label_dict = labelobj.get_Label(33)
-    print(label_dict)
 
 
 if __name__ == '__main__':

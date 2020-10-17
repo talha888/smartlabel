@@ -6,19 +6,19 @@ class Dataset():
         self.name = ""
     
     def create_dataset(self, name, description = ""):
-        """Create a new Data
+        """Create a new Dataset
 
         Args:
             name (str): Title of dataset
             description (str, optional): Description of the dataset. Helps in searching. Defaults to "".
         
         Returns:
-            id (int): Id of the newly created dataset.
+            int : Id of the newly created dataset.
         """
 
         mycursor = db.cursor()
 
-
+        # TODO: remove extra comments
         #mycursor.execute("CREATE DATABASE smartlabels")
         #mycursor.execute("CREATE TABLE Labels (Label_id int PRIMARY KEY AUTO_INCREMENT, x1 FLOAT, y1 FLOAT)")
         mycursor.execute("INSERT INTO dataset (UserID, Name, Description) VALUES (%s,%s,%s)",(1, name, description))
@@ -28,14 +28,22 @@ class Dataset():
 
 #Col names are not showing 
     def get_dataset(self, id):
+        """Returns a dictonary containing information about Dataset 
+
+        Args:
+            id (int): id of the dataset
+
+        Returns:
+            dict: meta data of dataset
+        """
         mycursor = db.cursor()
 
-
+        # TODO: Remove extra comments
         #mycursor.execute("CREATE DATABASE smartlabels")
         #mycursor.execute("CREATE TABLE Labels (Label_id int PRIMARY KEY AUTO_INCREMENT, x1 FLOAT, y1 FLOAT)")
         #mycursor.execute("INSERT INTO dataset (UserID, Name, Description) VALUES (%s,%s,%s)",(1, name, description))
         mycursor.execute(f"SELECT * FROM dataset where DatasetId = {id}")
-
+        # TODO: this dict is undefined if mycursor has no items.
         for x in mycursor:
            
            thisdict = {
