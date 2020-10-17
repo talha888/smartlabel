@@ -1,4 +1,4 @@
-from connection import db
+from .connection import db
 
 class Label_Object():
     def __init__(self):

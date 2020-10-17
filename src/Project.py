@@ -1,4 +1,4 @@
-from connection import db
+from .connection import db
 
 class Project():
     def __init__(self):
@@ -13,20 +13,19 @@ class Project():
     def get_project(self, id):
         mycursor = db.cursor()
         mycursor.execute(f"SELECT * FROM project where ProjectId = {id}")
-
+        data = []
         for x in mycursor:
-           
-           thisdict = {
-            "ProjectId": x[0],
-            "Createdby": x[1],
-            "DatasetId": x[2],
-            "Name": x[3],
-            "Description": x[4],
-            "Status": x[5],
-            "Role": x[6],
-            "DateIn": x[7],
-            "DateOut": x[8],
-        }
-
+            data.append(x)
         db.commit()
-        return thisdict
+        columns = mycursor.column_names
+        return data, columns
+    
+    def get_projects(self):
+        mycursor = db.cursor()
+        mycursor.execute("SELECT * FROM project")
+        data = []
+        for x in mycursor:
+           data.append(x)
+        db.commit()
+        columns = mycursor.column_names
+        return data, columns

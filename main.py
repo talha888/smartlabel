@@ -1,25 +1,37 @@
-from Dataset import Dataset
-from Project import Project
-from Label import Label_Object
+from src.Dataset import Dataset
+from src.Project import Project
+from src.Label import Label_Object
+import argparse
+from tabulate import tabulate
+
+parser = argparse.ArgumentParser(description='CLI interface for Smartlabel.digital')
+parser.add_argument('--list-projects', nargs='?', help='List all user projects.')
+
+# ? - none or more
+# + - one or more
+# 5
 
 def main():
-    dataset = Dataset()
-    project = Project()
-    labelobj = Label_Object()
-
-    #dataset.create_dataset("Hello", "Sample Description")
-    dataset_dict = dataset.get_dataset(20)
-    print(dataset_dict)
+    args = parser.parse_args()
     
 
-    #project.create_project("Birds", "Birds Project")
-    project_dict = project.get_project(19)
-    print(project_dict)
-
-    #labelobj.create_Label("Rat", "BOUNDING_BOX")
-    label_dict = labelobj.get_Label(33)
-    print(label_dict)
-
+    if args.list_projects == 'all':
+        project = Project()
+        table, columns= project.get_projects()
+        output = tabulate(table, columns , tablefmt="psql")
+        print(output)
+    else:
+        if isinstance(int(args.list_projects),int):
+            Id = int(args.list_projects)
+            project = Project()
+            table, columns= project.get_project(Id)
+            output = tabulate(table, columns , tablefmt="psql")
+            print(output)
+        else:
+            print("---------invalid Arguments, argument should be 'all' or by Project Id----------")
+    
+    #else if ...:
+    #else if
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,4 @@
-from connection import db
+from .connection import db
 
 class Dataset():
     def __init__(self):
