@@ -1,13 +1,10 @@
-docstring = "*"*99 + """ Smartlabel command line interface.
-""" +  "*"*99
 
 import argparse
 
-
+docstring = "*"*99 + """ Smartlabel command line interface.
+""" +  "*"*99
 parser = argparse.ArgumentParser(description=docstring)
-
 parser.add_argument("--list-projects", default=argparse.SUPPRESS, nargs='?')
-
 parser.add_argument("--create-project", default=argparse.SUPPRESS, nargs=1)
 parser.add_argument("--create-dataset", default=argparse.SUPPRESS, nargs=1)
 parser.add_argument("--create-dataset-rows-from-directory", default=argparse.SUPPRESS, nargs=1)
@@ -16,14 +13,12 @@ parser.add_argument("--create-dataset-row-from-csv", default=argparse.SUPPRESS, 
 parser.add_argument("--create-dataset-row-from-txt", default=argparse.SUPPRESS, nargs=1, type=str)
 parser.add_argument("--create-dataset-row-from-image", default=argparse.SUPPRESS, nargs=1, type=str)
 
-
 parser.add_argument("--connect-dataset-to-project", default=argparse.SUPPRESS, nargs=1)
-
 
 # TODO: add argparse support to the module
 # TODO: https://github.com/talha888/smartlabel/issues/1
 
-
+parser.add_argument()
 def main():
     args, leftovers = parser.parse_known_args()
     
