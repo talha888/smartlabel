@@ -1,5 +1,9 @@
 
 import argparse
+from smartlabel.Dataset import Dataset
+from smartlabel.Project import Project
+from smartlabel.Label import Label_Object
+from tabulate import tabulate
 
 docstring = "*"*99 + """ Smartlabel command line interface.
 """ +  "*"*99
@@ -23,8 +27,10 @@ def main():
     args, leftovers = parser.parse_known_args()
     
     if hasattr(args, 'list_projects'):
-        # TODO: list all projects with tabulate
-        print('list projects')
+        project = Project()
+        table, columns= project.get_projects()
+        output = tabulate(table, columns , tablefmt="psql")
+        print(output)
     elif hasattr(args, 'create_project'):
         # TODO: list create a new project and return a line with its meta data.
         print('project has been created')
@@ -36,23 +42,19 @@ def main():
         print('all files have been uploaded to dataset')
 
 
-    if args.list_projects == 'all':
-        project = Project()
-        table, columns= project.get_projects()
-        output = tabulate(table, columns , tablefmt="psql")
-        print(output)
-    else:
-        if isinstance(int(args.list_projects),int):
-            Id = int(args.list_projects)
-            project = Project()
-            table, columns= project.get_project(Id)
-            output = tabulate(table, columns , tablefmt="psql")
-            print(output)
-        else:
-            print("---------invalid Arguments, argument should be 'all' or by Project Id----------")
+        
+    # else:
+    #     if isinstance(int(args.list_projects),int):
+    #         Id = int(args.list_projects)
+    #         project = Project()
+    #         table, columns= project.get_project(Id)
+    #         output = tabulate(table, columns , tablefmt="psql")
+    #         print(output)
+    #     else:
+    #         print("---------invalid Arguments, argument should be 'all' or by Project Id----------")
     
-    #else if ...:
-    #else if
+    # #else if ...:
+    # #else if
 
 if __name__ == '__main__':
     main()
