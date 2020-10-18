@@ -9,6 +9,7 @@ docstring = "*"*99 + """ Smartlabel command line interface.
 """ +  "*"*99
 parser = argparse.ArgumentParser(description=docstring)
 parser.add_argument("--list-projects", default=argparse.SUPPRESS, nargs='?')
+parser.add_argument("--get-project", default=argparse.SUPPRESS, nargs='?')
 parser.add_argument("--create-project", default=argparse.SUPPRESS, nargs=1)
 parser.add_argument("--create-dataset", default=argparse.SUPPRESS, nargs=1)
 parser.add_argument("--create-dataset-rows-from-directory", default=argparse.SUPPRESS, nargs=1)
@@ -22,39 +23,46 @@ parser.add_argument("--connect-dataset-to-project", default=argparse.SUPPRESS, n
 # TODO: add argparse support to the module
 # TODO: https://github.com/talha888/smartlabel/issues/1
 
-parser.add_argument()
 def main():
     args, leftovers = parser.parse_known_args()
     
     if hasattr(args, 'list_projects'):
+        if args.list_projects is None:
+            project = Project()
+            table, columns= project.get_projects()
+            if table != 0:
+                output = tabulate(table, columns , tablefmt="psql")
+                print(output)
+            else:
+                print("-----------------NO RECORD FOUND-----------------")
+        else:
+            print("-----------------To do , Need to show help-----------------")
+
+    elif hasattr(args, 'get_project'):
+        Id = args.get_project
         project = Project()
-        table, columns= project.get_projects()
-        output = tabulate(table, columns , tablefmt="psql")
-        print(output)
+        table, columns= project.get_project(Id)
+        if table != 0:
+            output = tabulate(table, columns , tablefmt="psql")
+            print(output)
+        else:
+            print("-----------------TRY WITH VALID ID-----------------")
+    
     elif hasattr(args, 'create_project'):
-        # TODO: list create a new project and return a line with its meta data.
-        print('project has been created')
+        if args.create_project is not None:
+            Createdby,DatasetId, Name, Description, Status, Role = input("Enter the following data Createdby,DatasetId, Name, Description, Status, Role: ").split() 
+            project = Project()
+            project.create_project(Createdby,DatasetId, Name, Description, Status, Role)
+        else:
+            print("-----------------Invalid entry-----------------")
+            
     elif hasattr(args, 'create_dataset'):
         # TODO: list create a new dataset and return a line with its meta data.
-        print('dataset has been created')
+        print(args)
     elif hasattr(args, 'create_dataset_row_from_csv'):
         # TODO: list create a new dataset and return a line with its meta data.
         print('all files have been uploaded to dataset')
 
-
-        
-    # else:
-    #     if isinstance(int(args.list_projects),int):
-    #         Id = int(args.list_projects)
-    #         project = Project()
-    #         table, columns= project.get_project(Id)
-    #         output = tabulate(table, columns , tablefmt="psql")
-    #         print(output)
-    #     else:
-    #         print("---------invalid Arguments, argument should be 'all' or by Project Id----------")
-    
-    # #else if ...:
-    # #else if
 
 if __name__ == '__main__':
     main()

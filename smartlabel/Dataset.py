@@ -17,10 +17,6 @@ class Dataset():
         """
 
         mycursor = db.cursor()
-
-        # TODO: remove extra comments
-        #mycursor.execute("CREATE DATABASE smartlabels")
-        #mycursor.execute("CREATE TABLE Labels (Label_id int PRIMARY KEY AUTO_INCREMENT, x1 FLOAT, y1 FLOAT)")
         mycursor.execute("INSERT INTO dataset (UserID, Name, Description) VALUES (%s,%s,%s)",(1, name, description))
         db.commit()
 
